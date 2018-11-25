@@ -21,28 +21,43 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.imooc.repository")
 @EnableTransactionManagement
 public class JPAConfig {
+
     @Bean
     @ConfigurationProperties(prefix = "spring.datasource")
     public DataSource dataSource() {
         return DataSourceBuilder.create().build();
     }
 
+    /**
+     * 实体类管理工厂
+     * @return
+     */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        // jpa适配器
         HibernateJpaVendorAdapter japVendor = new HibernateJpaVendorAdapter();
+        // 是否生成sql
         japVendor.setGenerateDdl(false);
 
+        // 实体类管理工厂类
         LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactory.setDataSource(dataSource());
         entityManagerFactory.setJpaVendorAdapter(japVendor);
+        // 实体类包名
         entityManagerFactory.setPackagesToScan("com.imooc.entity");
         return entityManagerFactory;
     }
 
+    /**
+     * 事务管理类
+     * @param entityManagerFactory 自动注入实体类管理类
+     * @return
+     */
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
     }
+
 }

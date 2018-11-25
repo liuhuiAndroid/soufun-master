@@ -17,9 +17,11 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 /**
  * Created by 瓦力.
+ * ApplicationContextAware：帮助获取spring上下文
  */
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+
     @Value("${spring.thymeleaf.cache}")
     private boolean thymeleafCacheEnable = true;
 
@@ -35,7 +37,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/");
     }
 
     /**
@@ -43,6 +46,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
      * @return
      */
     @Bean
+    // 前缀绑定
     @ConfigurationProperties(prefix = "spring.thymeleaf")
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();

@@ -10,6 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Configuration
+// 使用application-test.properties配置
 @ActiveProfiles("test")
 public class ApplicationTests {
     @Test
