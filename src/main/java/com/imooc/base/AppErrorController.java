@@ -38,7 +38,7 @@ public class AppErrorController implements ErrorController {
      * Web页面错误处理
      */
     @RequestMapping(value = ERROR_PATH, produces = "text/html")
-    public String errorPageHandler(HttpServletRequest request, HttpServletResponse response) {
+    public String errorPageHandler(HttpServletResponse response) {
         int status = response.getStatus();
         switch (status) {
             case 403:

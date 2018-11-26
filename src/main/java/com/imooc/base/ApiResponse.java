@@ -70,6 +70,7 @@ public class ApiResponse {
         BAD_REQUEST(400, "Bad Request"),
         NOT_FOUND(404, "Not Found"),
         INTERNAL_SERVER_ERROR(500, "Unknown Internal Error"),
+        // 自定义信息
         NOT_VALID_PARAM(40005, "Not valid Params"),
         NOT_SUPPORTED_OPERATION(40006, "Operation not supported"),
         NOT_LOGIN(50000, "Not Login");
