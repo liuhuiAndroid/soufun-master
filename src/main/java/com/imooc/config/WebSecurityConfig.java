@@ -38,8 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/login").permitAll() // 用户登录入口
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/api/user/**").hasAnyRole("ADMIN",
-                "USER")
+                .antMatchers("/api/user/**").hasAnyRole("ADMIN", "USER")
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/login") // 配置角色登录处理入口
@@ -64,6 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Autowired
     public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        // 配置走我们自己的认证逻辑
         auth.authenticationProvider(authProvider()).eraseCredentials(true);
     }
 
@@ -74,6 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public LoginUrlEntryPoint urlEntryPoint() {
+        // 默认登录入口:/user/login
         return new LoginUrlEntryPoint("/user/login");
     }
 

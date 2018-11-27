@@ -20,6 +20,7 @@ public class AuthProvider implements AuthenticationProvider {
     @Autowired
     private IUserService userService;
 
+    // MD5加密器
     private final Md5PasswordEncoder passwordEncoder = new Md5PasswordEncoder();
 
     @Override
@@ -34,11 +35,8 @@ public class AuthProvider implements AuthenticationProvider {
 
         if (this.passwordEncoder.isPasswordValid(user.getPassword(), inputPassword, user.getId())) {
             return new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
-
         }
-
         throw new BadCredentialsException("authError");
-
     }
 
     @Override

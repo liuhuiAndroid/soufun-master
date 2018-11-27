@@ -23,8 +23,7 @@ public class LoginAuthFailHandler extends SimpleUrlAuthenticationFailureHandler 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
-        String targetUrl =
-                this.urlEntryPoint.determineUrlToUseForThisRequest(request, response, exception);
+        String targetUrl = this.urlEntryPoint.determineUrlToUseForThisRequest(request, response, exception);
 
         targetUrl += "?" + exception.getMessage();
         super.setDefaultFailureUrl(targetUrl);

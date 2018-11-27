@@ -63,6 +63,10 @@ public class User implements UserDetails {
         this.name = name;
     }
 
+    /**
+     * 权限
+     * @Transient 让这个字段透明，因为这个字段在mysql中不存在，从role表中获取
+     */
     @Transient
     private List<GrantedAuthority> authorityList;
 
